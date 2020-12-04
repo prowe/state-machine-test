@@ -15,7 +15,7 @@ it('should show an Add button', () => {
 it('should show a name input when the Add button is clicked', async () => {
     render(<ToDoList/>);
     userEvent.click(screen.getByRole('button', {name: 'Add'}));
-    expect(await screen.findByRole('input', {name: 'Name'})).toBeVisible();
+    expect(await screen.findByRole('textbox', {name: 'Name'})).toBeVisible();
 });
 
 it('should show a Save button when the Add button is clicked', async () => {
@@ -27,7 +27,7 @@ it('should show a Save button when the Add button is clicked', async () => {
 it('should save a new ToDo when the user clicks save', async () => {
     render(<ToDoList/>);
     userEvent.click(screen.getByRole('button', {name: 'Add'}));
-    userEvent.type(await screen.findByRole('input', {name: 'Name'}), 'Do Stuff');
+    userEvent.type(await screen.findByRole('textbox', {name: 'Name'}), 'Do Stuff');
     userEvent.click(await screen.findByRole('button', {name: 'Save'}));
     const expectedToDo: ToDo = {
         name: 'Do Stuff'
@@ -38,7 +38,7 @@ it('should save a new ToDo when the user clicks save', async () => {
 it('should show the ToDO when the user saves', async () => {
     render(<ToDoList/>);
     userEvent.click(screen.getByRole('button', {name: 'Add'}));
-    userEvent.type(await screen.findByRole('input', {name: 'Name'}), 'Do Stuff');
+    userEvent.type(await screen.findByRole('textbox', {name: 'Name'}), 'Do Stuff');
     userEvent.click(await screen.findByRole('button', {name: 'Save'}));
 
     expect(await screen.findByRole('listitem', {name: 'Do Stuff'})).toBeVisible();
@@ -50,8 +50,8 @@ it('should show an error if the save fails', async () => {
 
     render(<ToDoList/>);
     userEvent.click(screen.getByRole('button', {name: 'Add'}));
-    userEvent.type(await screen.findByRole('input', {name: 'Name'}), 'Do Stuff');
+    userEvent.type(await screen.findByRole('textbox', {name: 'Name'}), 'Do Stuff');
     userEvent.click(await screen.findByRole('button', {name: 'Save'}));
 
-    expect(await screen.findByRole('alert', {name: 'Error saving ToDo!'})).toBeVisible();
+    expect(await screen.findByRole('alert')).toBeVisible();
 });
